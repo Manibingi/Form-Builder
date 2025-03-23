@@ -3,6 +3,7 @@ const Response = require("../schema/response.schema");
 const Form = require("../schema/form.schema");
 const router = express.Router();
 
+// validate input fields
 const validateResponse = (input, value) => {
   if (!value) return "This field is required.";
 
@@ -29,6 +30,7 @@ const validateResponse = (input, value) => {
   return null; // No error
 };
 
+// Submit a response to a form
 router.post("/responses", async (req, res) => {
   const { formId, responses } = req.body;
 
@@ -61,27 +63,6 @@ router.post("/responses", async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
-
-// Submit a response to a form
-// router.post("/responses", async (req, res) => {
-//   try {
-//     const { formId, responses } = req.body;
-
-//     // Validate the form ID
-//     const formExists = await Form.findById(formId);
-//     if (!formExists) {
-//       return res.status(404).json({ message: "Form not found" });
-//     }
-
-//     // Save the response
-//     const response = new Response({ formId, responses });
-//     await response.save();
-
-//     res.status(201).json(response);
-//   } catch (err) {
-//     res.status(400).json({ message: err.message });
-//   }
-// });
 
 // Get all responses for a specific form
 router.get("/responses/:formId", async (req, res) => {

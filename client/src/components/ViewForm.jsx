@@ -74,23 +74,6 @@ const ViewForm = () => {
     }
   };
 
-  // const handleSubmit = async () => {
-  //   try {
-  //     const responseData = {
-  //       formId: id,
-  //       responses: Object.keys(responses).map((inputId) => ({
-  //         inputId,
-  //         value: responses[inputId],
-  //       })),
-  //     };
-  //     await submitResponse(responseData);
-  //     toast.success("Response saved successfully!");
-  //     navigate("/");
-  //   } catch (error) {
-  //     toast.error("Error saving response. Please try again.");
-  //   }
-  // };
-
   return (
     <div className="p-4 flex flex-col justify-center items-center">
       <h1 className="text-2xl font-bold mb-4">{form.title}</h1>

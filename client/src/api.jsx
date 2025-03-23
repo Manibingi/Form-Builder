@@ -42,8 +42,3 @@ export const submitResponse = async (formId, responses) => {
     throw error;
   }
 };
-
-// export const submitResponse = async (responseData) => {
-//   const response = await axios.post(`${apiUrl}/responses`, responseData);
-//   return response.data;
-// };
