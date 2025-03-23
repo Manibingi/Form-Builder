@@ -44,7 +44,15 @@ Create a `.env` file in the `server/` folder and add:
 
 ```
 PORT=5000
-MONGO_URI=your_mongodb_connection_string
+MONGODB_URI=your_mongodb_connection_string
+```
+
+#### **Environment Variables (.env)**
+
+Create a `.env` file in the `client/` folder and add:
+
+```
+VITE_API_URL=your_mongodb_connection_string
 ```
 
 #### **Run the Backend**
@@ -58,6 +66,14 @@ nodemon index.js
 ```bash
 cd client
 npm install
+```
+
+#### **Environment Variables (.env)**
+
+Create a `.env` file in the `client/` folder and add:
+
+```
+VITE_API_URL=backend_connection_string
 ```
 
 #### **Run the Frontend**
