@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { createForm, getFormById, updateForm } from "../api";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CreateForm = () => {
   const [title, setTitle] = useState("");
@@ -42,25 +43,32 @@ const CreateForm = () => {
 
   // Save or update the form
   const handleSaveForm = async () => {
-    const formData = {
-      title,
-      inputs: inputs.map((input) => ({
-        type: input.type,
-        title: input.title,
-        placeholder: input.placeholder,
-      })),
-    };
+    try {
+      const formData = {
+        title,
+        inputs: inputs.map((input) => ({
+          type: input.type,
+          title: input.title,
+          placeholder: input.placeholder,
+        })),
+      };
 
-    if (id) {
-      // Update existing form
-      await updateForm(id, formData);
-      alert("Form updated successfully!");
-    } else {
-      // Create new form
-      await createForm(formData);
-      alert("Form created successfully!");
+      if (id) {
+        // Update existing form
+        await updateForm(id, formData);
+      } else {
+        // Create new form
+        await createForm(formData);
+      }
+      toast.success("Form saved successfully!");
+      navigate("/"); // Redirect to the home page
+    } catch (error) {
+      toast.error(
+        id
+          ? "error occurred updating the form. Please try again."
+          : "error occurred creating the form. Please try again."
+      );
     }
-    navigate("/"); // Redirect to the home page
   };
 
   return (

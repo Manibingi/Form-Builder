@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getFormById, submitResponse } from "../api";
+import { toast } from "react-toastify";
 
 const ViewForm = () => {
   const { id } = useParams();
@@ -18,16 +19,20 @@ const ViewForm = () => {
   }, [id]);
 
   const handleSubmit = async () => {
-    const responseData = {
-      formId: id,
-      responses: Object.keys(responses).map((inputId) => ({
-        inputId,
-        value: responses[inputId],
-      })),
-    };
-    await submitResponse(responseData);
-    alert("Response submitted successfully!");
-    navigate("/");
+    try {
+      const responseData = {
+        formId: id,
+        responses: Object.keys(responses).map((inputId) => ({
+          inputId,
+          value: responses[inputId],
+        })),
+      };
+      await submitResponse(responseData);
+      toast.success("Response saved successfully!");
+      navigate("/");
+    } catch (error) {
+      toast.error("Error saving response. Please try again.");
+    }
   };
 
   return (

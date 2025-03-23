@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { deleteForm, getForms } from "../api";
 import { CiEdit } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
+import { toast } from "react-toastify";
 
 const Home = () => {
   const [forms, setForms] = useState([]);
@@ -19,10 +20,14 @@ const Home = () => {
 
   // Handle form deletion
   const handleDeleteForm = async (id) => {
-    if (window.confirm("Are you sure you want to delete this form?")) {
-      await deleteForm(id);
-      setForms(forms.filter((form) => form._id !== id)); // Remove the deleted form from the list
-      alert("Form deleted successfully!");
+    try {
+      if (window.confirm("Are you sure you want to delete this form?")) {
+        await deleteForm(id);
+        setForms(forms.filter((form) => form._id !== id)); // Remove the deleted form from the list
+        toast.success("Form deleted successfully!");
+      }
+    } catch (error) {
+      toast.error("Error deleting form. Please try again.");
     }
   };
 
