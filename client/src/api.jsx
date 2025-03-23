@@ -27,7 +27,23 @@ export const getFormById = async (id) => {
   return response.data;
 };
 
-export const submitResponse = async (responseData) => {
-  const response = await axios.post(`${apiUrl}/responses`, responseData);
-  return response.data;
+export const submitResponse = async (formId, responses) => {
+  try {
+    const response = await axios.post(`${apiUrl}/responses`, {
+      formId,
+      responses: Object.keys(responses).map((inputId) => ({
+        inputId,
+        value: responses[inputId],
+      })),
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error submitting responses:", error);
+    throw error;
+  }
 };
+
+// export const submitResponse = async (responseData) => {
+//   const response = await axios.post(`${apiUrl}/responses`, responseData);
+//   return response.data;
+// };
